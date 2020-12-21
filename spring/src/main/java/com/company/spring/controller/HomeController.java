@@ -27,7 +27,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/empList")
-	public String empList(Model model, EmpSearch emp) {
+	public String empList(Model model, EmpSearch emp) {//model --담는공간인
 		model.addAttribute("list", empMapper.getEmpList(emp));
 		return "emp/empList";
 	}

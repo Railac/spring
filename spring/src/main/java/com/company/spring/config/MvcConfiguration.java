@@ -1,25 +1,38 @@
 package com.company.spring.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.BeanNameViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-// @Configuration
+@Configuration
+@ComponentScan(basePackages="com.company.spring")
+@EnableWebMvc
 public class MvcConfiguration implements WebMvcConfigurer{
 
-	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		// TODO Auto-generated method stub
-		configurer.enable();
-	}
+	/*
+	 * @Override public void
+	 * configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+	 * // TODO Auto-generated method stub configurer.enable(); }
+	 */
 	
 	@Bean
-	public ViewResolver beanNameResolver() {
-		BeanNameViewResolver resolver = new BeanNameViewResolver();
-		resolver.setOrder(1);
+	public ViewResolver getViewResolver(){
+		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+		resolver.setPrefix("/WEB-INF/views/");
+		resolver.setSuffix(".jsp");
+		resolver.setOrder(3);
 		return resolver;
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 	
 //	@Bean//컨테이너 객체를 등록
