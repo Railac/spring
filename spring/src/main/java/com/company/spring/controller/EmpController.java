@@ -24,7 +24,7 @@ public class EmpController {
 	}
 	
 	@GetMapping("/empinsertForm") //request, response 를 쓰지않고 그냥 통일해서 model로 쓰는듯
-	public String insertForm(Model model, Emp emp) { 
+	public String insertForm(Model model, Emp emp) { //커멘드객체 (Emp emp)
 		model.addAttribute("jobs",dao.jobSelect()); //넘길값을 model에 담는다.
 		model.addAttribute("depts", dao.deptSelect());
 		return "emp/Insert"; //model값을 담아서 emp/Insert 페이지 리턴, 컨트롤러 읽는곳은 MvcContifuration
