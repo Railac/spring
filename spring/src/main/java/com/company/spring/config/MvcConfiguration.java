@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @ComponentScan(basePackages="com.company.spring")
-@EnableWebMvc
+@EnableWebMvc //뭘처리해줌?driven??
 public class MvcConfiguration implements WebMvcConfigurer{
 
 	/*

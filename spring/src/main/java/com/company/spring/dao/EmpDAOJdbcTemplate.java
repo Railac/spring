@@ -45,7 +45,8 @@ public class EmpDAOJdbcTemplate {
 				emp.setFirstName(rs.getString("first_name"));
 				emp.setLastName(rs.getString("last_name"));
 				return emp;
-			}});
+			}
+		});
 	}
 	
 }

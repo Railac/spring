@@ -43,6 +43,7 @@
 	<select id="getEmpList" resultType="emp">
 		SELECT *
 		  FROM employees
+		  order by employee_id
 		  <where>
 		  	<if test="firstName != null and firstName !='' " >
 		  		lower(first_name) like '%' || #{firstName} || '%'

@@ -9,6 +9,7 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="com.company.spring.dao.Emp" alias="emp"/> 
+		<typeAlias type="com.company.spring.users.service.UserVO" alias="user"/> 
 		<!-- 패키지하나박에안들어감, VO를 모아라? -->
 	</typeAliases>
 	
