@@ -17,7 +17,7 @@
 	</select>
 	<select id="getUser" parameterType="user" resultType="user">
 		select id,
-		password, name, role
+		password, name, role, profile
 		from users
 		where id=#{id}
 	</select>
@@ -31,11 +31,15 @@
 
 	<!-- 등록 -->
 	<insert id="insertUser" parameterType="user">
-		insert into users (id, password, name, role)
+		insert into users (id, password, name, role
+		<if test="profile != null and profile != ''">
+		 	,PROFILE
+		 </if>)
 		values ( #{id},
 		#{password},
 		#{name},
-		#{role} )
+		#{role},
+		#{profile} )
 	</insert>
 
 	<!-- 수정 -->
@@ -44,6 +48,9 @@
 		password = #{password},
 		name = #{name},
 		role = #{role}
+		<if test="profile != null and profile != ''">
+		 	,profile = #{profile}
+		 </if>
 		where id = #{id}
 	</update>
 
@@ -52,5 +59,6 @@
 		delete from users
 		where id = #{id}
 	</delete>
-
+	
+	
 </mapper>
