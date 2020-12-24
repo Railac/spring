@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.company.spring.dao.Departments;
 import com.company.spring.dao.Emp;
 import com.company.spring.dao.EmpMapper;
 import com.company.spring.dao.EmpSearch;
@@ -29,6 +31,16 @@ public class EmpController {
 //		model.addAttribute("list", dao.getEmpList(emp));
 //		return "emp/select"; //view 페이지를 넘겨줌
 //	}
+	@ModelAttribute("jobs")
+	public List<Jobs> jobs(){
+		return dao.jobSelect();
+	}
+	@ModelAttribute("depts")
+	public List<Departments> depts(){
+		return dao.deptSelect();
+	}
+	
+	
 	@RequestMapping("/ajax/jobSelect")
 	@ResponseBody //java를 json 구조로 변경
 	public List<Jobs> jobSelect(){
@@ -47,20 +59,25 @@ public class EmpController {
 	
 	@GetMapping("/empinsertForm") //request, response 를 쓰지않고 그냥 통일해서 model로 쓰는듯
 	public String insertForm(Model model, Emp emp) { //커멘드객체 (Emp emp)  -vo값을 받을때
-		model.addAttribute("jobs",dao.jobSelect()); //넘길값을 model에 담는다.
-		model.addAttribute("depts", dao.deptSelect());
+//		model.addAttribute("jobs",dao.jobSelect()); //넘길값을 model에 담는다.
+//		model.addAttribute("depts", dao.deptSelect());
 		return "emp/Insert"; //model값을 담아서 emp/Insert 페이지 리턴, 컨트롤러 읽는곳은 MvcContifuration
 	}
 	@GetMapping("/empUpdateForm")
 	public String updateForm(Model model, Emp emp) {
 		model.addAttribute("emp",dao.getEmp(emp));
-		model.addAttribute("jobs",dao.jobSelect());
-		model.addAttribute("depts", dao.deptSelect());
+//		model.addAttribute("jobs",dao.jobSelect());
+//		model.addAttribute("depts", dao.deptSelect());
 		return "emp/Insert";
 	}
 	
+//	@RequestMapping("/empInsert")
 	@PostMapping("/empInsert") //등록수정같이
-	public String insert(@ModelAttribute("employee") Emp emp) {
+	public String insert(Model model, Emp emp, Errors errors) {
+		new EmpValidator().validate(emp, errors);
+		if(errors.hasErrors()) {
+			return "emp/Insert";
+		}
 		if(emp.getEmployeeId()==null)
 			dao.insertEmp(emp);
 		else
