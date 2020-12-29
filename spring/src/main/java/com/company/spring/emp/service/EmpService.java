@@ -1,9 +1,14 @@
-package com.company.spring.dao;
+package com.company.spring.emp.service;
 
 import java.util.List;
 import java.util.Map;
 
-public interface EmpMapper { //DAO 대신 mybatis 에서 mapper.xml 탐
+import com.company.spring.dao.Departments;
+import com.company.spring.dao.Emp;
+import com.company.spring.dao.EmpSearch;
+import com.company.spring.dao.Jobs;
+
+public interface EmpService {
 	public List<Emp> getEmpList(EmpSearch emp);
 	public int updateEmp(Emp emp);
 	public Emp getEmp(Emp emp);

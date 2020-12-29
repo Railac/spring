@@ -16,14 +16,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.company.spring.dao.Departments;
 import com.company.spring.dao.Emp;
-import com.company.spring.dao.EmpMapper;
 import com.company.spring.dao.EmpSearch;
 import com.company.spring.dao.Jobs;
+import com.company.spring.emp.service.EmpService;
 
 @Controller
 public class EmpController {
 	@Autowired
-	EmpMapper dao;
+	EmpService service;
 //	//get ,post상관없이 요청처리
 //	@RequestMapping(value = "/empSelect",method = RequestMethod.GET) 
 //	public String select(Model model, EmpSearch emp) {
@@ -33,18 +33,18 @@ public class EmpController {
 //	}
 	@ModelAttribute("jobs")
 	public List<Jobs> jobs(){
-		return dao.jobSelect();
+		return service.jobSelect();
 	}
 	@ModelAttribute("depts")
 	public List<Departments> depts(){
-		return dao.deptSelect();
+		return service.deptSelect();
 	}
 	
 	
 	@RequestMapping("/ajax/jobSelect")
 	@ResponseBody //java를 json 구조로 변경
 	public List<Jobs> jobSelect(){
-		return dao.jobSelect();
+		return service.jobSelect();
 	}
 	
 		//ModelAndView 실습예제
@@ -52,7 +52,7 @@ public class EmpController {
 		public ModelAndView select(EmpSearch emp) {
 			//조회
 			ModelAndView mav = new ModelAndView();
-			mav.addObject("list", dao.getEmpList(emp)); //넘길객체 
+			mav.addObject("list", service.getEmpList(emp)); //넘길객체 
 			mav.setViewName("emp/select"); // view페이지
 			return mav; //model과 view 페이지를 같이 넘겨줌
 		}
@@ -65,7 +65,7 @@ public class EmpController {
 	}
 	@GetMapping("/empUpdateForm")
 	public String updateForm(Model model, Emp emp) {
-		model.addAttribute("emp",dao.getEmp(emp));
+		model.addAttribute("emp",service.getEmp(emp));
 //		model.addAttribute("jobs",dao.jobSelect());
 //		model.addAttribute("depts", dao.deptSelect());
 		return "emp/Insert";
@@ -79,9 +79,9 @@ public class EmpController {
 			return "emp/Insert";
 		}
 		if(emp.getEmployeeId()==null)
-			dao.insertEmp(emp);
+			service.insertEmp(emp);
 		else
-			dao.updateEmp(emp);
+			service.updateEmp(emp);
 		//request.setAttribute("emp",emp); //커멘드객체는 자동으로속성으로 저장됨
 		return "emp/insertOutput";
 	}
