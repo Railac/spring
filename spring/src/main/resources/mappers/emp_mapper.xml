@@ -102,7 +102,7 @@
 		delete from employees
 		where employee_id IN
 		<foreach collection="list" item="id"
-				open="(" close=")" separator=",">
+				open="(" close=")" separator=","> <!-- 던진 매개변수 타입의 collection이 필드명 -->
 			#{id}
 		</foreach>
 	</delete>

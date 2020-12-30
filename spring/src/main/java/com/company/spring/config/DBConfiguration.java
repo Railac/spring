@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.company")
+//@Import -- 자바 import랑 같은역할
 public class DBConfiguration {
 	// 데이터소스 등록
 	@Bean(destroyMethod = "close")

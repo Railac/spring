@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.company.spring.users.service.UserService;
 import com.company.spring.users.service.UserVO;
@@ -25,7 +26,10 @@ public class UserServiceImpl implements UserService {
 	public List<Map> getUserListMap(UserVO vo) {
 		return userDAO.getUserListMap(vo);
 	}
+	
+	//@Transactional --TransactionConfiguration 설정하면 (AOP설정) 어노테이션없이도 기능실행되야됨.
 	public int insertUser(UserVO dto) {		
+		userDAO.insertUser(dto);		
 		return userDAO.insertUser(dto);		
 	}
 	public int updateUser(UserVO dto) {
