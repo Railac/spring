@@ -13,5 +13,10 @@
 		<input name="password" placeholder="password"><br>
 		<button>로그인</button>
 	</form>
+	<a href="${kakao_url }">카카오로그인</a>
+	<a href="${kakao_url }">네이버로그인</a>
+	<a href="${kakao_url }">페이스북로그인</a>
+	<a href="${kakao_url }">인스타로그인</a>
+	
 </body>
 </html>
