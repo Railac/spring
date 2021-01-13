@@ -5,11 +5,12 @@
 <mapper namespace="com.company.spring.dao.EmpMapper">
 <!-- 부서별 사원 수 -부서번호, 부서명, 사원수 -->
 	<select id="getStatDept" resultType="map">
-		select e.department_id, 
-		       d.department_name, 
-		       count(*) over() as CNT
+		select e.department_id "dept_id", 
+		       d.department_name "dept_name", 
+		       count(*)  as CNT
 		from employees e, departments d
 		where e.department_id = d.department_id
+    	group by e.department_id, d.department_name
 		<!-- group by e.department_id, d.department_name -->
 	</select>
 <!-- update -->

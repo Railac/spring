@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.company.spring.common.AuthCheckInterceptor;
@@ -22,6 +24,7 @@ import com.company.spring.common.AuthCheckInterceptor;
 @ComponentScan(basePackages="com.company.spring")
 @EnableWebMvc //뭘처리해줌?driven?? 메세지 컨버터?
 @EnableAspectJAutoProxy(proxyTargetClass=true)
+@EnableScheduling
 public class MvcConfiguration implements WebMvcConfigurer{
 
 	/*
@@ -93,6 +96,14 @@ public class MvcConfiguration implements WebMvcConfigurer{
 		CommonsMultipartResolver multi = new CommonsMultipartResolver();
 		multi.setMaxUploadSize(1024*10000);
 		return multi;
+	}
+	
+	//2021-01-12 엑셀 다운로드
+	@Bean
+	public BeanNameViewResolver beanNameViewResolver() {
+		BeanNameViewResolver bean = new BeanNameViewResolver();
+		bean.setOrder(1);
+		return bean;
 	}
 	
 //	@Bean//컨테이너 객체를 등록
