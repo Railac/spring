@@ -90,7 +90,7 @@ public class MvcConfiguration implements WebMvcConfigurer{
 	public AuthCheckInterceptor authCheckInterceptor() {
 		return new AuthCheckInterceptor();
 	}
-	
+	//파일업로드?
 	@Bean 
 	public CommonsMultipartResolver multipartResolver() {
 		CommonsMultipartResolver multi = new CommonsMultipartResolver();

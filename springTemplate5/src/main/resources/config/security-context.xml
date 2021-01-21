@@ -8,16 +8,15 @@
 	
 	<security:http>
 		<security:intercept-url pattern="/top.jsp" access="permitAll()" />
-		<security:intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/admin/**" access="permitAll()" /><!-- access에 따라 url로들어가면 login페이지뜸 -->
+		<!-- <security:intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')" /> -->
 		<security:intercept-url pattern="/**" access="isAuthenticated()" />
-		<security:form-login default-target-url="/top.jsp" />
+		<security:form-login default-target-url="/top.jsp" /><!-- 성공적으로로그인했을떄 뜨는페이지 -->
 		<security:logout logout-url="/logout" logout-success-url="/top.jsp" />
 		<security:csrf disabled="true" />
 	</security:http>
 	<security:authentication-manager>
-		<security:authentication-provider
-			user-service-ref="authService"
-		>
+		<security:authentication-provider user-service-ref="authService">
 			<!-- <security:jdbc-user-service data-source-ref="dataSource"
 				 users-by-username-query
 				 ="select LOGIN_ID, PASSWORD, 1
